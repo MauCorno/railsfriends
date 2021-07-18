@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<% if user_signed_in? %>
+
+    <h1>Friends</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Twitter</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @friends.each do |friend| %>
+          <% if friend.user == current_user %>
+          <tr>
+            <td><%= link_to friend.nombre + ' ' + friend.apellido, friend %></td>
+            <td><%= friend.email %></td>
+            <td><%= friend.telefono %></td>
+            <td><%= friend.twitter %></td>
+            <td><%= link_to 'Delete', friend, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Friend', new_friend_path %>
+
+<%else%>
+
+    <h1>Página Principal de amigos</h1>
+    <p>Bienvenido a sus amigos con Ruby on Rails</p>
+
+<%end%>
